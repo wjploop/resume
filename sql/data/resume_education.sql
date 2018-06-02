@@ -1,0 +1,1 @@
+INSERT INTO resume.education (id, resume_Id, time_period, school_name, major, description) VALUES (1, 1, '2014.9-2018.6', '天津科技大学', '软件工程', '本科期间主要学习了java相关的技术,主修课程包括数据结构,操作系统,计算机网络等等');

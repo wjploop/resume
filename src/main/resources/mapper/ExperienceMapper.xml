@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.loop.resume.dao.ExperienceMapper" >
+  <resultMap id="BaseResultMap" type="com.loop.resume.pojo.Experience" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="resume_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="time_period" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="organization" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.loop.resume.pojo.Experience" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="resume_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="time_period" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="organization" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="description" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, resume_id, time_period, organization, job_title
+  </sql>
+  <sql id="Blob_Column_List" >
+    description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from experience
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectByResumeId" resultMap="ResultMapWithBLOBs">
+      SELECT
+      <include refid="Base_Column_List"/>
+      ,
+      <include refid="Blob_Column_List"/>
+      FROM experience
+      WHERE resume_id=#{resumeId}
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from experience
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.loop.resume.pojo.Experience" >
+    insert into experience (id, resume_id, time_period, 
+      organization, job_title, description
+      )
+    values (#{id,jdbcType=INTEGER}, #{resumeId,jdbcType=INTEGER}, #{timePeriod,jdbcType=VARCHAR}, 
+      #{organization,jdbcType=VARCHAR}, #{jobTitle,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.loop.resume.pojo.Experience" >
+    insert into experience
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resumeId != null" >
+        resume_id,
+      </if>
+      <if test="timePeriod != null" >
+        time_period,
+      </if>
+      <if test="organization != null" >
+        organization,
+      </if>
+      <if test="jobTitle != null" >
+        job_title,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resumeId != null" >
+        #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="timePeriod != null" >
+        #{timePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null" >
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null" >
+        #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.loop.resume.pojo.Experience" >
+    update experience
+    <set >
+      <if test="resumeId != null" >
+        resume_id = #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="timePeriod != null" >
+        time_period = #{timePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null" >
+        organization = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null" >
+        job_title = #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.loop.resume.pojo.Experience" >
+    update experience
+    set resume_id = #{resumeId,jdbcType=INTEGER},
+      time_period = #{timePeriod,jdbcType=VARCHAR},
+      organization = #{organization,jdbcType=VARCHAR},
+      job_title = #{jobTitle,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.loop.resume.pojo.Experience" >
+    update experience
+    set resume_id = #{resumeId,jdbcType=INTEGER},
+      time_period = #{timePeriod,jdbcType=VARCHAR},
+      organization = #{organization,jdbcType=VARCHAR},
+      job_title = #{jobTitle,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

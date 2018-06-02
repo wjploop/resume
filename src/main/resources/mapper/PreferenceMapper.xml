@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.loop.resume.dao.PreferenceMapper" >
+  <resultMap id="BaseResultMap" type="com.loop.resume.pojo.Preference" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="job_function" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_city" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="salary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="duty_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, job_function, job_type, job_city, salary, duty_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from preference
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from preference
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.loop.resume.pojo.Preference" >
+    insert into preference (id, job_function, job_type, 
+      job_city, salary, duty_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{jobFunction,jdbcType=VARCHAR}, #{jobType,jdbcType=VARCHAR}, 
+      #{jobCity,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR}, #{dutyTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.loop.resume.pojo.Preference" >
+    insert into preference
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jobFunction != null" >
+        job_function,
+      </if>
+      <if test="jobType != null" >
+        job_type,
+      </if>
+      <if test="jobCity != null" >
+        job_city,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+      <if test="dutyTime != null" >
+        duty_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobFunction != null" >
+        #{jobFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="jobType != null" >
+        #{jobType,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCity != null" >
+        #{jobCity,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyTime != null" >
+        #{dutyTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.loop.resume.pojo.Preference" >
+    update preference
+    <set >
+      <if test="jobFunction != null" >
+        job_function = #{jobFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="jobType != null" >
+        job_type = #{jobType,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCity != null" >
+        job_city = #{jobCity,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyTime != null" >
+        duty_time = #{dutyTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.loop.resume.pojo.Preference" >
+    update preference
+    set job_function = #{jobFunction,jdbcType=VARCHAR},
+      job_type = #{jobType,jdbcType=VARCHAR},
+      job_city = #{jobCity,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=VARCHAR},
+      duty_time = #{dutyTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

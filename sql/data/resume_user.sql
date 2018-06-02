@@ -1,0 +1,1 @@
+INSERT INTO resume.user (id, name, sex, age, phone, email, adress, motto) VALUES (1, '文建平', '男', '23岁', '15332123527', 'wjploop@163.com', '天津', '学而不思则罔,思而不学则殆');
